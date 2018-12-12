@@ -74,8 +74,9 @@ figure;
 hold on;
 grid on;
 box on;
-plot(SNR, Rate_Matrix(:,1), '--o', 'LineWidth',1.3,'MarkerSize',6, 'color', red, 'MarkerFaceColor',red);
-plot(SNR, Rate_Matrix(:,2), '--o', 'LineWidth',1.3,'MarkerSize',6, 'color', blue, 'MarkerFaceColor',blue);
+
+pl(1)= plot(SNR, Rate_Matrix(:,1), '--o', 'LineWidth',1.3,'MarkerSize',6, 'color', red, 'MarkerFaceColor',red);
+pl(2)=plot(SNR, Rate_Matrix(:,2), '--o', 'LineWidth',1.3,'MarkerSize',6, 'color', blue, 'MarkerFaceColor',blue);
 
 SNR2 = [SNR, fliplr(SNR)];
 inBetween = [min(rate_random,[],2)', fliplr(max(rate_random,[],2)')];
@@ -84,11 +85,11 @@ inBetween = [min(rate_random,[],2)', fliplr(max(rate_random,[],2)')];
 fill(SNR2, inBetween, green);
 alpha(0.5)
 
-plot(SNR, Rate_Matrix(:,3), '--o', 'LineWidth',1.3,'MarkerSize',6, 'color', green, 'MarkerFaceColor',green);
+pl(3)=plot(SNR, Rate_Matrix(:,3), '--o', 'LineWidth',1.3,'MarkerSize',6, 'color', green, 'MarkerFaceColor',green);
 % errorbar(SNR, mean(rate_random,2), max(rate_random,[],2)-min(rate_random,[],2), ...
 % 'LineWidth',1.3,'MarkerSize',8, 'color', green, 'MarkerFaceColor',green);
 xlabel('SNR','FontSize',12);%, 'FontWeight','bold');
 ylabel('Sum transmission rate (b/s/Hz)','FontSize',12);%, 'FontWeight','bold');
 xlim([min(SNR) max(SNR)]);
 ylim([0 1.2*max(max(Rate_Matrix))]);
-legend({'OMA','RAMA-OMA', '', 'proposed RA-NOMA'}, 'Location','northwest','Interpreter','latex','FontSize',12);
+legend(pl(1:3),{'OMA','RAMA-OMA', 'proposed RA-NOMA'}, 'Location','northwest','Interpreter','latex','FontSize',12);
