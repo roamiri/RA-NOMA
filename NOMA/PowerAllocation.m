@@ -1,28 +1,9 @@
-function rate = PowerAllocation(Pm, sigma2, test)
+function rate = PowerAllocation(Pm, sigma2, h, test)
 NRF = 3; % Number of RF Chains
 NB = 3; % Number of beams 
-% Pm = 300 ; % Watt
-PL = [ -10, -5, 0;
-       -10, -5, 0;
-       -10, -5, 0; ];
- 
-h = 10.^(PL./20);
+% Pm = 300 ; % Watt 
+
 % sigma2 = 1e-1;
-%% OMA (TDMA) 
-sum_rate = 0.;
-for i=1:9
-    sum_rate = sum_rate + log2(1 + (Pm.*h(i)^2)/(sigma2));
-end
-
-OMA_rate = sum_rate/9; % Since it is TDMA and averaged over nine time slots.
-
-%% RAMA-OMA
-sum_rate = 0.;
-for i=1:9
-    sum_rate = sum_rate + log2(1 + (Pm.*h(i)^2)/(NB*sigma2));
-end
-
-RAMA_OMA_rate = sum_rate/3; % Since it is TDMA for each group of RAMA and averaged over three time slots.
 %% RA-NOMA
 
 Rb = 0.2*ones(1,NRF);  % R_bar = minimum requirements
@@ -82,6 +63,7 @@ if test
     fprintf('Is sum rate correct? %d\n', (3*sum_rate-RA_NOMA_rate)<0.01);
 end
 
-rate = [OMA_rate, RAMA_OMA_rate, RA_NOMA_rate];
+% rate = [OMA_rate, RAMA_OMA_rate, RA_NOMA_rate];
+   rate = RA_NOMA_rate;
 end
 
