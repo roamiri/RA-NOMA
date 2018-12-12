@@ -1,8 +1,7 @@
-function rate = PowerAllocation(Pm, sigma2, h, test)
+function [rate, powers] = PowerAllocation(Pm, sigma2, h, test)
 NRF = 3; % Number of RF Chains
 NB = 3; % Number of beams 
 % Pm = 300 ; % Watt 
-
 % sigma2 = 1e-1;
 %% RA-NOMA
 
@@ -65,5 +64,6 @@ end
 
 % rate = [OMA_rate, RAMA_OMA_rate, RA_NOMA_rate];
    rate = RA_NOMA_rate;
+   powers = p;
 end
 
